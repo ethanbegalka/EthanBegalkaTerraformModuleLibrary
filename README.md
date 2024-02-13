@@ -4,6 +4,7 @@ Within some of my personal projects, here are terraform modules I've created and
 
 ## Examples:
 
+```
 module "cloudfront_distribution" {
   source = "../EthanBegalkaTerraformModuleLibrary/cloudfront_distribution"
 
@@ -45,7 +46,6 @@ module "vpc" {
 
   vpc_cidr_block = "10.20.0.0/18"
 
-
   subnets = {
     eb_jenkins_private_subnet1 = {
       cidr_block        = "10.20.20.0/26"
@@ -74,3 +74,4 @@ module "web_acl" {
   name            = "jenkins-web-acl"
   resource_prefix = "jenkins"
 }
+```
