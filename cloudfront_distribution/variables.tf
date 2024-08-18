@@ -26,6 +26,14 @@ variable "origin_access_control_origin_type" {
     type = string
 }
 
-variable "alias" {
+variable "aliases" {
+    type = list(string)
+}
+
+variable "apex_domain" {
+    type = string
+}
+
+variable "origin_protocol_policy" {
     type = string
 }

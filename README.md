@@ -8,15 +8,17 @@ Within some of my personal projects, here are terraform modules I've created and
 module "cloudfront_distribution" {
   source = "../EthanBegalkaTerraformModuleLibrary/cloudfront_distribution"
 
-  resource_prefix = "jenkins"
+  resource_prefix = "website"
 
-  route53_hosted_zone_name          = "yourdomain.com"
+  route53_hosted_zone_name          = "mywebsite.com"
   web_acl_arn                       = module.web_acl.web_acl_arn
-  origin_id                         = "ALB-${module.lb.lb_id}"
-  origin_domain_name                = module.lb.lb_dns_name
+  origin_id                         = "S3-${aws_s3_bucket.eb_website_bucket.id}"
+  origin_domain_name                = aws_s3_bucket_website_configuration.eb_bucket_website_configuration.website_endpoint
   origin_access_control_origin_type = "s3"
-  acm_certificate_arn               = data.aws_acm_certificate.eb_certificate.arn
-  alias                             = "subdomain.yourdomain.com""
+  acm_certificate_arn               = aws_acm_certificate.eb_certificate.arn
+  aliases                           = ["www.mywebsite.com", "mywebsite.com"]
+  apex_domain                       = "mywebsite.com"
+  origin_protocol_policy            = "https-only"
 }
 
 module "lb" {
